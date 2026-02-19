@@ -69,8 +69,6 @@ def recognize_face():
                 distance = result['distance']
                 person_name = os.path.splitext(ref_file)[0]
 
-                # print(f"Сравнение с {person_name}: distance = {distance:.4f}")
-
                 if distance < RECOGNITION_THRESHOLD:
                     found_person = person_name
                     best_distance = distance
@@ -80,8 +78,7 @@ def recognize_face():
                     best_distance = distance
                     best_match_name = person_name
 
-            except Exception as e:
-                # print(f"Ошибка при сравнении с {ref_file}: {str(e)}")
+            except Exception:
                 continue
 
         os.remove(input_path)
@@ -97,7 +94,9 @@ def recognize_face():
                 "status": "not_recognized",
                 "message": "Лицо обнаружено, но совпадений не найдено",
                 "best_match": best_match_name,
-                "best_distance": round(best_distance, 4) if best_match_name else None
+                "best_distance": (
+                    round(best_distance, 4) if best_match_name else None
+                ),
             })
 
     except ValueError as ve:
