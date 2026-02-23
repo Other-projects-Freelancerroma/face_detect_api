@@ -1,6 +1,5 @@
 import datetime
 import os
-import json
 import requests
 from requests.auth import HTTPDigestAuth
 import logging
@@ -125,7 +124,7 @@ def dahua_snapshot_to_deepface(
             final_result["person"] = data.get("person")
             final_result["distance"] = data.get("distance")
             log.info(
-                f"Распознано: {data.get('person')} (dist {data.get('distance')})"
+                f"Распознано: {data.get('person')} (dt {data.get('distance')})"
             )
         elif status == "not_recognized":
             final_result["best_match"] = data.get("best_match")
