@@ -256,23 +256,27 @@ def dahua_snapshot_to_deepface(
         image_url = f"{base_url}{relative_url}"
 
     if image_url:
-        # try:
-        #     service.call(
-        #         "telegram_bot",
-        #         "send_photo",
-        #         url=image_url,
-        #         caption=telegram_message,
-        #         parse_mode="Markdown"
-        #     )
-        #     log.warning(f"Фото отправлено в Telegram по URL: {image_url}")
-        # except Exception as e:
-        #     log.error(f"Ошибка отправки фото по URL в Telegram: {str(e)}")
-        #     service.call(
-        #         "telegram_bot",
-        #         "send_message",
-        #         message=telegram_message + "\n\n(не удалось прикрепить фото)",
-        #         parse_mode="Markdown",
-        #     )
+        try:
+            service.call(
+                "telegram_bot",
+                "send_photo",
+                url=image_url,
+                caption=telegram_message,
+                parse_mode="Markdown"
+            )
+            log.warning(
+                f"Фото отправлено в Telegram по URL: {image_url}"
+            )
+        except Exception as e:
+            log.error(
+                f"Ошибка отправки фото по URL в Telegram: {str(e)}"
+            )
+            service.call(
+                "telegram_bot",
+                "send_message",
+                message=telegram_message + "\n\n(не удалось прикрепить фото)",
+                parse_mode="Markdown",
+            )
     else:
         try:
             service.call(
@@ -281,8 +285,12 @@ def dahua_snapshot_to_deepface(
                 message=telegram_message,
                 parse_mode="Markdown",
             )
-            log.warning("Отправлено только текстовое сообщение в Telegram")
+            log.warning(
+                "Отправлено только текстовое сообщение в Telegram"
+            )
         except Exception as e:
-            log.error(f"Ошибка отправки текста в Telegram: {str(e)}")
+            log.error(
+                f"Ошибка отправки текста в Telegram: {str(e)}"
+            )
 
     return final_result
