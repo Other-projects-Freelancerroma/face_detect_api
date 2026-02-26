@@ -17,6 +17,10 @@ RECOGNITION_THRESHOLD = 0.4
 
 @app.route('/recognize', methods=['POST'])
 def recognize_face():
+    """
+    Обрабатывает POST-запрос с изображением и возвращает результат
+    """
+
     if 'image' not in request.files:
         return jsonify({"error": "Изображение не передано"}), 400
 
