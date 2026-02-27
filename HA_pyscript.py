@@ -20,6 +20,7 @@ def download_dahua_jpg(
     """
     Скачивает скриншот и сохраняет как .jpg. Возвращает путь к файлу
     """
+
     timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
     filename = f"{filename_prefix}_{timestamp}.jpg"
     save_path = os.path.join(save_dir, filename)
@@ -47,6 +48,7 @@ def send_to_deepface_server(jpg_path):
     """
     Отправляет файл на DeepFace-сервер и возвращает результат распознавания
     """
+
     url = "http://172.20.22.12:5000/recognize"
     files = {
         "image": (
@@ -87,6 +89,7 @@ def dahua_snapshot_to_deepface(
     Скачивание снимка с камеры, отправка и возвращение результата
     с повторными попытками при "no_face" (до 5 раз, с паузой 30 сек)
     """
+
     max_attempts = 5
     final_result = None
     face_detected = False
@@ -245,7 +248,9 @@ def dahua_snapshot_to_deepface(
         relative_url = last_jpg_path.replace("/config/www/", "/local/")
         base_url = ""
         try:
-            if hasattr(hass.config.api, 'base_url') and hass.config.api.base_url:
+            if hasattr(
+                hass.config.api, 'base_url'
+            ) and hass.config.api.base_url:
                 base_url = hass.config.api.base_url.rstrip('/')
         except:
             pass
